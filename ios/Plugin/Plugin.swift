@@ -6,8 +6,8 @@ import StripeTerminal
  * Please read the Capacitor iOS Plugin Development Guide
  * here: https://capacitor.ionicframework.com/docs/plugins/ios
  */
-@objc(StripeTerminal)
-public class StripeTerminal: CAPPlugin, ConnectionTokenProvider, DiscoveryDelegate, TerminalDelegate, BluetoothReaderDelegate, ReconnectionDelegate, LocalMobileReaderDelegate {
+@objc(StripeTerminalPlugin)
+public class StripeTerminalPlugin: CAPPlugin, ConnectionTokenProvider, DiscoveryDelegate, TerminalDelegate, BluetoothReaderDelegate, ReconnectionDelegate, LocalMobileReaderDelegate {
     private var pendingConnectionTokenCompletionBlock: ConnectionTokenCompletionBlock?
     private var pendingDiscoverReaders: Cancelable?
     private var pendingInstallUpdate: Cancelable?
@@ -20,7 +20,21 @@ public class StripeTerminal: CAPPlugin, ConnectionTokenProvider, DiscoveryDelega
     private var thread = DispatchQueue.init(label: "CapacitorStripeTerminal")
 
     private var readers: [Reader]?
+    // Called when plugin is loaded.
+    override public func pluginInitialize() {
+        super.pluginInitialize()
+    }
 
+    // Replace with your methods.
+    @objc func echo(_ command: CDVInvokedUrlCommand) {
+        // This line is needed to translate cordova to Capacitor API
+        let call = createCall(command)
+    
+        let value = call.getString("value") ?? ""
+        call.resolve([
+            "value": implementation.echo(value)
+        ])
+    }
     func logMsg(items: Any...) {
         print("SWIFT \(items)")
     }

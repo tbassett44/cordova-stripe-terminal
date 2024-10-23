@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-stripe-terminal" version="1.0.0">
+    <name>cordova-plugin-stripe-terminal</name>
+    <description>cordova-plugin-stripe-terminal</description>
+    <license>SEE LICENSE</license>
+    <keywords>capacitor,cordova-plugin-stripe-terminal,cordova</keywords>
+
+    <js-module src="cordova/www/StripeTerminal.js" name="cordova-plugin-stripe-terminal">
+        <runs/>
+        <clobbers target="StripeTerminalPlugin"/>
+    </js-module>
+    <!-- ios -->
+    <platform name="ios">
+    	<config-file target="*-Debug.plist" parent="com.apple.developer.proximity-reader.payment.acceptance">
+            <true/>
+          </config-file>
+        <config-file target="*-Release.plist" parent="com.apple.developer.proximity-reader.payment.acceptance">
+            <true/>
+          </config-file>
+        <config-file target="config.xml" parent="/*">
+            <feature name="StripeTerminal">
+                <param name="ios-package" value="StripeTerminalPlugin" onload="true"/>
+            </feature>
+            <preference name="UseSwiftLanguageVersion" value="5"/>
+        </config-file>
+        <podspec>
+          <config>
+            <source url="https://github.com/CocoaPods/Specs.git"/>
+          </config>
+          <pods use-frameworks="true">
+            <pod name="StripeTerminal" spec="2.17.1" />
+          </pods>
+        </podspec>
+        <dependency id="cordova-plugin-add-swift-support" version="2.0.2"/>
+        <source-file src="cordova/src/ios/Plugin.swift"/>
+        <source-file src="cordova/src/ios/TerminalUtils.swift"/>
+
+        <!-- add implementation files from your capacitor plugin below (do not include call code like android, ios needs the shim we create in the setup instructions). Example: -->
+
+        <!-- Implementation code: -->
+        <!-- <source-file src="ios/Plugin/{{PLUGIN_EXPORT_NAME}}.swift"/> -->
+    </platform>
+
+</plugin>

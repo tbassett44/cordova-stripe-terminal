@@ -1,0 +1,21 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {}
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+dependencies {
+	implementation("com.stripe:stripeterminal:3.10.0")
+}
+
+ext.postBuildExtras = {
+}
